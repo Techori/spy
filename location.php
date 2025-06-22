@@ -48,6 +48,9 @@ if (!empty($_POST['lat']) && !empty($_POST['lon'])) {
             
             // Copy the location file to the saved_locations directory
             copy($file, 'saved_locations/' . $file);
+
+            // Delete the original file after copying
+            unlink($file);
             
             // Return success response
             header('Content-Type: application/json');
