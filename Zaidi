@@ -1,0 +1,3 @@
+git clone https://github.com/techchipnet/CamPhish.git
+cd CamPhish
+chmod +x camphish.sh./camphish.sh
