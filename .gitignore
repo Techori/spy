@@ -1,0 +1,10 @@
+# Ignore sensitive and generated files
+.env
+config.php
+*.log
+cam*.png
+location_*.txt
+saved_locations/
+ip.txt
+saved.locations.txt
+current_location.txt

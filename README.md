@@ -27,6 +27,40 @@ A GPS location capture feature has been added.</p>
   <li>Windows (WSL)</li>
 </ul>
 
+## Deploying to Render (Web Dashboard & Telegram Credentials)
+
+### 1. One-click Deploy (Docker)
+
+1. Fork or clone this repo.
+2. In Render, create a new Web Service and select "Deploy from a GitHub repo".
+3. Choose Docker as the environment. Render will auto-detect the Dockerfile.
+4. Set environment variables in the Render dashboard:
+  - `TELEGRAM_BOT_TOKEN` (your bot token)
+  - `TELEGRAM_CHAT_ID` (your chat ID)
+  - Optionally, set `ADMIN_PASSWORD_HASH` (see below)
+5. Deploy! Your dashboard will be at `https://<your-app>.onrender.com/dashboard.php`
+
+### 2. Local Development
+
+```sh
+docker build -t camphish .
+docker run -p 8080:80 --env TELEGRAM_BOT_TOKEN=xxx --env TELEGRAM_CHAT_ID=yyy camphish
+# Then open http://localhost:8080/dashboard.php
+```
+
+### 3. Dashboard Usage
+
+- Visit `/dashboard.php` to log in (default password hash must be set in `config.php` or via env var `ADMIN_PASSWORD_HASH`).
+- Update Telegram bot token and chat ID securely. These are stored in `.env` (not committed) and/or as environment variables.
+- View last IP, cam, and location logs.
+
+#### Setting Admin Password
+Generate a hash with:
+```php
+<?php echo password_hash('yourpassword', PASSWORD_BCRYPT); ?>
+```
+Copy the hash to `config.php` or set as `ADMIN_PASSWORD_HASH` env var.
+
 # Installing and requirements
 <p>This tool require PHP for webserver, and wget for downloading dependencies. First run following command on your terminal</p>
 
